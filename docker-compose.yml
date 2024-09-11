@@ -1,5 +1,5 @@
 version: "3"
-food-delivery-services:
+services:
   food-delivery-config-server:
     container_name: food-delivery-config-server
     deploy:
