@@ -2,16 +2,16 @@ version: "3"
 services:
   food-delivery-config-server:
     container_name: food-delivery-config-server
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: '0.256'
-          memory: 512M
-        reservations:
-          cpus: '0.128'
-          memory: 128M
-    image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-config-server:12
+    # deploy:
+    #   replicas: 1
+    #   resources:
+    #     limits:
+    #       cpus: '0.256'
+    #       memory: 512M
+    #     reservations:
+    #       cpus: '0.128'
+    #       memory: 128M
+    image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-config-server:16
     restart: always
     environment:
       PORT: 8888
@@ -24,15 +24,15 @@ services:
 
   food-delivery-discovery-service:
       container_name: food-delivery-discovery-service
-      deploy:
-        replicas: 1
-        resources:
-          limits:
-            cpus: '0.256'
-            memory: 512M
-          reservations:
-            cpus: '0.128'
-            memory: 128M
+      # deploy:
+      #   replicas: 1
+      #   resources:
+      #     limits:
+      #       cpus: '0.256'
+      #       memory: 512M
+      #     reservations:
+      #       cpus: '0.128'
+      #       memory: 128M
       image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-discovery-service:2
       restart: always
       environment:
