@@ -1,7 +1,7 @@
 version: "3"
 services:
-  config-server:
-    container_name: config-server
+  food-delivery-config-server:
+    container_name: food-delivery-config-server
     # deploy:
     #   replicas: 1
     #   resources:
