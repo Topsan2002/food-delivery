@@ -38,7 +38,7 @@ services:
       environment:
         HOSTNAME: http://food-delivery-discovery-service:8761/eureka/
         EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
-        SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-services:8888
+        SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
       ports:
         - 8761:8761
       networks:
