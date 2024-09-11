@@ -1,16 +1,16 @@
 version: "3"
-services:
+food-delivery-services:
   food-delivery-config-server:
     container_name: food-delivery-config-server
-    # deploy:
-    #   replicas: 1
-    #   resources:
-    #     limits:
-    #       cpus: '0.256'
-    #       memory: 512M
-    #     reservations:
-    #       cpus: '0.128'
-    #       memory: 128M
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.256'
+          memory: 512M
+        reservations:
+          cpus: '0.128'
+          memory: 128M
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-config-server:12
     restart: always
     environment:
@@ -22,30 +22,27 @@ services:
     networks:
       - food-delivery-net
 
-#   discovery-service:
-#       container_name: discovery-service
-# #      deploy:
-# #        replicas: 1
-# #        resources:
-# #          limits:
-# #            cpus: '0.256'
-# #            memory: 512M
-# #          reservations:
-# #            cpus: '0.128'
-# #            memory: 128M
-#       build:
-#         context: ./discovery
-#         dockerfile: Dockerfile
-#       restart: always
-#       environment:
-#         HOSTNAME: http://discovery-service:8761/eureka/
-#         EUREKA_INSTANCE_HOSTNAME: discovery-service
-#         SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
-
-#       ports:
-#         - 8761:8761
-#       networks:
-#         - food-delivery-net
+  food-delivery-discovery-service:
+      container_name: food-delivery-discovery-service
+      deploy:
+        replicas: 1
+        resources:
+          limits:
+            cpus: '0.256'
+            memory: 512M
+          reservations:
+            cpus: '0.128'
+            memory: 128M
+      image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-discovery-service:2
+      restart: always
+      environment:
+        HOSTNAME: http://food-delivery-discovery-service:8761/eureka/
+        EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
+        SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-services:8888
+      ports:
+        - 8761:8761
+      networks:
+        - food-delivery-net
 
 #   gateway-service:
 #     container_name: gateway-service
