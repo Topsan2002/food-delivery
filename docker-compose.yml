@@ -11,12 +11,10 @@ services:
     #     reservations:
     #       cpus: '0.128'
     #       memory: 128M
-    build:
-      context: ./config-server
-      dockerfile: Dockerfile
+    image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-config-server
     restart: always
     environment:
-      HOSTNAME: http://discovery-service:8761/eureka/
+      PORT: 8888
       EUREKA_INSTANCE_HOSTNAME: discovery-service:88761
       EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://discovery-service:8761/eureka/
     ports:
