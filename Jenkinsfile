@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     sh "docker-compose down"
-                    sh "docker-compose up -d --build"
+                    sh "docker-compose up -d"
                     // sh "docker info"
                     // sh "curl --version"
                     // sh "jq --version"
