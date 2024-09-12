@@ -17,10 +17,10 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    // sh "docker compose version"
-                    sh "docker info"
-                    sh "curl --version"
-                    sh "jq --version"
+                    sh "docker-compose up -d --build"
+                    // sh "docker info"
+                    // sh "curl --version"
+                    // sh "jq --version"
                 }
             }
         }
