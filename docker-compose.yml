@@ -59,7 +59,7 @@ services:
     restart: always
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
-      EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service:88761
+      EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
       EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://food-delivery-discovery-service:8761/eureka/
       
     ports:
