@@ -44,33 +44,34 @@ services:
       networks:
         - food-delivery-net
 
-#   gateway-service:
-#     container_name: gateway-service
-# #    deploy:
-# #      replicas: 1
-# #      resources:
-# #        limits:
-# #          cpus: '0.256'
-# #          memory: 512M
-# #        reservations:
-# #          cpus: '0.128'
-# #          memory: 128M
-#     build:
-#       context: ./gateway
-#       dockerfile: Dockerfile
-#     restart: always
-#     environment:
-#       SPRING_CONFIG_IMPORT: optional:configserver:http://config-server:8888
-#       EUREKA_INSTANCE_HOSTNAME: discovery-service:88761
-#       EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://discovery-service:8761/eureka/
-#       ISSUER_URI: http://keycloak-ms:9098/realms/micro-services
-#     ports:
-#       - 8222:8222
-#     networks:
-#       - food-delivery-net
-#     depends_on:
-#       - discovery-service
-#       - keycloak-ms
+  gateway-service:
+    container_name: gateway-service
+#    deploy:
+#      replicas: 1
+#      resources:
+#        limits:
+#          cpus: '0.256'
+#          memory: 512M
+#        reservations:
+#          cpus: '0.128'
+#          memory: 128M
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
+      EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service:88761
+      EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://food-delivery-discovery-service:8761/eureka/
+      
+    ports:
+      - 8222:8222
+    networks:
+      - food-delivery-net
+    depends_on:
+      - food-delivery-discovery-service
+      # - keycloak-ms
+
 #   customer-service:
 #     container_name: customer-service
 # #    deploy:
