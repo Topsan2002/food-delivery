@@ -44,8 +44,8 @@ services:
       networks:
         - food-delivery-net
 
-  gateway-service:
-    container_name: gateway-service
+  food-delivery-gateway-service:
+    container_name: food-delivery-gateway-service
 #    deploy:
 #      replicas: 1
 #      resources:
