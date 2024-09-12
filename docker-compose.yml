@@ -33,7 +33,7 @@ services:
       #     reservations:
       #       cpus: '0.128'
       #       memory: 128M
-      image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-discovery-service:latest
+      image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-discovery-service:11
       restart: always
       environment:
         HOSTNAME: http://food-delivery-discovery-service:8761/eureka/
