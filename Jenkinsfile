@@ -17,6 +17,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
+                    sh "docker-compose down"
                     sh "docker-compose up -d --build"
                     // sh "docker info"
                     // sh "curl --version"
