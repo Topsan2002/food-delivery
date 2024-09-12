@@ -55,9 +55,7 @@ services:
 #        reservations:
 #          cpus: '0.128'
 #          memory: 128M
-    build:
-      context: ./gateway
-      dockerfile: Dockerfile
+    image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-gateway-service:latest
     restart: always
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
