@@ -97,7 +97,7 @@ services:
       - food-delivery-gateway-service
 
   food-delivery-ordering-service:
-    container_name: food-delivery-customer-service
+    container_name: food-delivery-ordering-service
 #    deploy:
 #      replicas: 1
 #      resources:
