@@ -95,6 +95,34 @@ services:
     depends_on:
       - food-delivery-discovery-service
       - food-delivery-gateway-service
+
+  food-delivery-ordering-service:
+    container_name: food-delivery-customer-service
+#    deploy:
+#      replicas: 1
+#      resources:
+#        limits:
+#          cpus: '0.256'
+#          memory: 512M
+#        reservations:
+#          cpus: '0.128'
+#          memory: 128M
+    image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-ordering-service:latest
+    restart: always
+    environment:
+      SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
+      EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
+      EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://food-delivery-discovery-service:8761/eureka/
+      CUSTOMER_URL: http://food-delivery-gateway-service:8222/api/v1/customer
+    ports:
+      - 8091:8091
+    networks:
+      - food-delivery-net
+    depends_on:
+      - food-delivery-discovery-service
+      - food-delivery-gateway-service
+
+    
       # - zipkin
 #   keycloak-ms:
 #     container_name: keycloak-ms
