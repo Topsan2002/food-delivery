@@ -1,17 +1,8 @@
 version: "3"
 services:
   food-delivery-config-server:
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: '0.256'
-          memory: 512M
-        reservations:
-          cpus: '0.128'
-          memory: 128M
-    container_name: food-delivery-config-server
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-config-server:latest
+    container_name: food-delivery-config-server
     restart: always
     environment:
       PORT: 8888
@@ -23,39 +14,21 @@ services:
       - food-delivery-net
 
   food-delivery-discovery-service:
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: '0.256'
-          memory: 512M
-        reservations:
-          cpus: '0.128'
-          memory: 128M
-      container_name: food-delivery-discovery-service
-      image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-discovery-service:latest
-      restart: always
-      environment:
-        HOSTNAME: http://food-delivery-discovery-service:8761/eureka/
-        EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
-        SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
-      ports:
-        - 8761:8761
-      networks:
-        - food-delivery-net
+    image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-discovery-service:latest
+    container_name: food-delivery-discovery-service
+    restart: always
+    environment:
+      HOSTNAME: http://food-delivery-discovery-service:8761/eureka/
+      EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
+      SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
+    ports:
+      - 8761:8761
+    networks:
+      - food-delivery-net
 
   food-delivery-gateway-service:
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: '0.256'
-          memory: 512M
-        reservations:
-          cpus: '0.128'
-          memory: 128M
-    container_name: food-delivery-gateway-service
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-gateway-service:latest
+    container_name: food-delivery-gateway-service
     restart: always
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
@@ -67,20 +40,10 @@ services:
       - food-delivery-net
     depends_on:
       - food-delivery-discovery-service
-    
 
   customer-service:
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: '0.256'
-          memory: 512M
-        reservations:
-          cpus: '0.128'
-          memory: 128M
-    container_name: food-delivery-customer-service
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-customer-service:latest
+    container_name: food-delivery-customer-service
     restart: always
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
@@ -95,17 +58,8 @@ services:
       - food-delivery-gateway-service
 
   ordering-service:
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: '0.256'
-          memory: 512M
-        reservations:
-          cpus: '0.128'
-          memory: 128M
-    container_name: food-delivery-ordering-service
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-ordering-service:latest
+    container_name: food-delivery-ordering-service
     restart: always
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
@@ -123,17 +77,8 @@ services:
       - food-delivery-gateway-service
 
   rider-service:
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: '0.256'
-          memory: 512M
-        reservations:
-          cpus: '0.128'
-          memory: 128M
-    container_name: food-delivery-rider-service
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-rider-service:latest
+    container_name: food-delivery-rider-service
     restart: always
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
@@ -148,17 +93,8 @@ services:
       - food-delivery-gateway-service
 
   restaurant-service:
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: '0.256'
-          memory: 512M
-        reservations:
-          cpus: '0.128'
-          memory: 128M
-    container_name: food-delivery-restaurant-service
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-restaurant-service:latest
+    container_name: food-delivery-restaurant-service
     restart: always
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
