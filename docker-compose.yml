@@ -2,15 +2,6 @@ version: "3"
 services:
   food-delivery-config-server:
     container_name: food-delivery-config-server
-    # deploy:
-    #   replicas: 1
-    #   resources:
-    #     limits:
-    #       cpus: '0.256'
-    #       memory: 512M
-    #     reservations:
-    #       cpus: '0.128'
-    #       memory: 128M
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-config-server:latest
     restart: always
     environment:
@@ -24,15 +15,6 @@ services:
 
   food-delivery-discovery-service:
       container_name: food-delivery-discovery-service
-      # deploy:
-      #   replicas: 1
-      #   resources:
-      #     limits:
-      #       cpus: '0.256'
-      #       memory: 512M
-      #     reservations:
-      #       cpus: '0.128'
-      #       memory: 128M
       image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-discovery-service:latest
       restart: always
       environment:
@@ -46,48 +28,28 @@ services:
 
   food-delivery-gateway-service:
     container_name: food-delivery-gateway-service
-#    deploy:
-#      replicas: 1
-#      resources:
-#        limits:
-#          cpus: '0.256'
-#          memory: 512M
-#        reservations:
-#          cpus: '0.128'
-#          memory: 128M
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-gateway-service:latest
     restart: always
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
       EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
       EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://food-delivery-discovery-service:8761/eureka/
-      
     ports:
       - 8222:8222
     networks:
       - food-delivery-net
     depends_on:
       - food-delivery-discovery-service
-      # - keycloak-ms
+    
 
-  food-delivery-customer-service:
+  customer-service:
     container_name: food-delivery-customer-service
-#    deploy:
-#      replicas: 1
-#      resources:
-#        limits:
-#          cpus: '0.256'
-#          memory: 512M
-#        reservations:
-#          cpus: '0.128'
-#          memory: 128M
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-customer-service:latest
     restart: always
     environment:
       SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
       EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
       EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://food-delivery-discovery-service:8761/eureka/
-      # ZIPKIN_TRACING_ENDPOINT: http://zipkin:9411/api/v2/spans
     ports:
       - 8093:8093
     networks:
@@ -96,17 +58,8 @@ services:
       - food-delivery-discovery-service
       - food-delivery-gateway-service
 
-  food-delivery-ordering-service:
+  ordering-service:
     container_name: food-delivery-ordering-service
-#    deploy:
-#      replicas: 1
-#      resources:
-#        limits:
-#          cpus: '0.256'
-#          memory: 512M
-#        reservations:
-#          cpus: '0.128'
-#          memory: 128M
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-ordering-service:latest
     restart: always
     environment:
@@ -114,6 +67,8 @@ services:
       EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
       EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://food-delivery-discovery-service:8761/eureka/
       CUSTOMER_URL: http://food-delivery-gateway-service:8222/api/v1/customer
+      RIDER_URL: http://food-delivery-gateway-service:8222/api/v1/rider
+      RESTAURANT_URL: http://food-delivery-gateway-service:8222/api/v1/restaurant
     ports:
       - 8091:8091
     networks:
@@ -122,28 +77,37 @@ services:
       - food-delivery-discovery-service
       - food-delivery-gateway-service
 
-    
-      # - zipkin
-#   keycloak-ms:
-#     container_name: keycloak-ms
-#     image: quay.io/keycloak/keycloak:24.0.2
-#     ports:
-#       - 9098:8080
-#     environment:
-#       KEYCLOAK_ADMIN: admin
-#       KEYCLOAK_ADMIN_PASSWORD: admin
-#     networks:
-#       - food-delivery-net
-#     command:
-#       - "start-dev"
+  rider-service:
+    container_name: food-delivery-rider-service
+    image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-rider-service:latest
+    restart: always
+    environment:
+      SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
+      EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
+      EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://food-delivery-discovery-service:8761/eureka/
+    ports:
+      - 8091:8091
+    networks:
+      - food-delivery-net
+    depends_on:
+      - food-delivery-discovery-service
+      - food-delivery-gateway-service
 
-#   zipkin:
-#     container_name: zipkin
-#     image: openzipkin/zipkin
-#     ports:
-#       - "9411:9411"
-#     networks:
-#       - food-delivery-net
+  restaurant-service:
+    container_name: food-delivery-restaurant-service
+    image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-restaurant-service:latest
+    restart: always
+    environment:
+      SPRING_CONFIG_IMPORT: optional:configserver:http://food-delivery-config-server:8888
+      EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
+      EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://food-delivery-discovery-service:8761/eureka/
+    ports:
+      - 8091:8091
+    networks:
+      - food-delivery-net
+    depends_on:
+      - food-delivery-discovery-service
+      - food-delivery-gateway-service
 
 networks:
   food-delivery-net:
