@@ -86,7 +86,7 @@ services:
       EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
       EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://food-delivery-discovery-service:8761/eureka/
     ports:
-      - 8091:8091
+      - 8092:8092
     networks:
       - food-delivery-net
     depends_on:
@@ -102,7 +102,7 @@ services:
       EUREKA_INSTANCE_HOSTNAME: food-delivery-discovery-service
       EUREKA_CLIENT_SERVICE_URL_DEFAULT_ZONE: http://food-delivery-discovery-service:8761/eureka/
     ports:
-      - 8091:8091
+      - 8094:8094
     networks:
       - food-delivery-net
     depends_on:
