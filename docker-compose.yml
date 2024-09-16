@@ -1,6 +1,15 @@
 version: "3"
 services:
   food-delivery-config-server:
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.256'
+          memory: 512M
+        reservations:
+          cpus: '0.128'
+          memory: 128M
     container_name: food-delivery-config-server
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-config-server:latest
     restart: always
@@ -14,6 +23,15 @@ services:
       - food-delivery-net
 
   food-delivery-discovery-service:
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.256'
+          memory: 512M
+        reservations:
+          cpus: '0.128'
+          memory: 128M
       container_name: food-delivery-discovery-service
       image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-discovery-service:latest
       restart: always
@@ -27,6 +45,15 @@ services:
         - food-delivery-net
 
   food-delivery-gateway-service:
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.256'
+          memory: 512M
+        reservations:
+          cpus: '0.128'
+          memory: 128M
     container_name: food-delivery-gateway-service
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-gateway-service:latest
     restart: always
@@ -43,6 +70,15 @@ services:
     
 
   customer-service:
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.256'
+          memory: 512M
+        reservations:
+          cpus: '0.128'
+          memory: 128M
     container_name: food-delivery-customer-service
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-customer-service:latest
     restart: always
@@ -59,6 +95,15 @@ services:
       - food-delivery-gateway-service
 
   ordering-service:
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.256'
+          memory: 512M
+        reservations:
+          cpus: '0.128'
+          memory: 128M
     container_name: food-delivery-ordering-service
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-ordering-service:latest
     restart: always
@@ -78,6 +123,15 @@ services:
       - food-delivery-gateway-service
 
   rider-service:
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.256'
+          memory: 512M
+        reservations:
+          cpus: '0.128'
+          memory: 128M
     container_name: food-delivery-rider-service
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-rider-service:latest
     restart: always
@@ -94,6 +148,15 @@ services:
       - food-delivery-gateway-service
 
   restaurant-service:
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '0.256'
+          memory: 512M
+        reservations:
+          cpus: '0.128'
+          memory: 128M
     container_name: food-delivery-restaurant-service
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-restaurant-service:latest
     restart: always
