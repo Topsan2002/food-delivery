@@ -41,7 +41,7 @@ services:
     depends_on:
       - food-delivery-discovery-service
 
-  customer-service:
+  food-delivery-customer-service:
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-customer-service:latest
     container_name: food-delivery-customer-service
     restart: always
@@ -57,7 +57,7 @@ services:
       - food-delivery-discovery-service
       - food-delivery-gateway-service
 
-  ordering-service:
+  food-delivery-ordering-service:
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-ordering-service:latest
     container_name: food-delivery-ordering-service
     restart: always
@@ -76,7 +76,7 @@ services:
       - food-delivery-discovery-service
       - food-delivery-gateway-service
 
-  rider-service:
+  food-delivery-rider-service:
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-rider-service:latest
     container_name: food-delivery-rider-service
     restart: always
@@ -92,7 +92,7 @@ services:
       - food-delivery-discovery-service
       - food-delivery-gateway-service
 
-  restaurant-service:
+  food-delivery-restaurant-service:
     image: 211125430268.dkr.ecr.ap-southeast-1.amazonaws.com/food-delivery-restaurant-service:latest
     container_name: food-delivery-restaurant-service
     restart: always
